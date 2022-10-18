@@ -16,6 +16,8 @@ on:
       - 'man/**'
       - 'vignettes/**'
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   pkgdown:
     runs-on: ubuntu-22.04
@@ -44,3 +46,9 @@ jobs:
           library("pkgdown")
           build_site_github_pages()
         shell: Rscript {0}
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          branch: gh-pages
+          single-commit: true
