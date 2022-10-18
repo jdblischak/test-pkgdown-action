@@ -32,7 +32,7 @@ jobs:
       - name: Session information
         run: sessionInfo()
         shell: Rscript {0}
-      - name: Test essential functionality
+      - name: Build pkgdown site
         run: |
           library("pkgdown")
           build_site_github_pages()
