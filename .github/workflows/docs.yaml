@@ -29,6 +29,8 @@ jobs:
       - name: Install pkgdown
         run: apt-get install --yes r-cran-pkgdown
         shell: sudo bash {0}
+      - name: Build workflowr
+        run: R CMD build --no-build-vignettes --no-manual .
       - name: Install workflowr
         run: R CMD INSTALL --no-docs --no-multiarch --no-staged-install workflowr_*.tar.gz
         shell: sudo bash {0}
