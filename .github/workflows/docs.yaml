@@ -1,0 +1,39 @@
+name: docs
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTING.md'
+      - 'DESCRIPTION'
+      - 'LICENSE'
+      - 'LICENSE.md'
+      - 'NAMESPACE'
+      - 'NEWS.md'
+      - 'README.md'
+      - '_pkgdown.yaml'
+      - 'man/**'
+      - 'vignettes/**'
+  workflow_dispatch:
+jobs:
+  pkgdown:
+    runs-on: ubuntu-22.04
+    name: Build pkgdown site
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup r2u
+        run: sudo bash scripts/ci/setup-r2u.sh
+      - name: Install dependencies
+        run: sudo bash scripts/ci/install-dependencies.sh
+      - name: Install pkgdown
+        run: apt-get install --yes r-cran-pkgdown
+        shell: sudo bash {0}
+      - name: Session information
+        run: sessionInfo()
+        shell: Rscript {0}
+      - name: Test essential functionality
+        run: |
+          library("pkgdown")
+          build_site_github_pages()
+        shell: Rscript {0}
