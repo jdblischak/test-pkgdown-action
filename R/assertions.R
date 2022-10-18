@@ -1,3 +1,5 @@
+# trigger builds
+
 # Process the files passed as input to workflowr functions.
 #
 # allow_null - Allow passing files=NULL
